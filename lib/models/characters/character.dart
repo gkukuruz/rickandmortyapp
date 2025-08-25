@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-
 class Character {
   final int id;
   final String name;
@@ -14,8 +11,6 @@ class Character {
   //final List<String> episode;
   final String url;
   final String created;
-
-  Future<File> get getImage => _getImage();
 
   Character({
     required this.id,
@@ -48,11 +43,20 @@ class Character {
     );
   }
 
-  Future<File> _getImage() async {
-    return await DefaultCacheManager().getSingleFile(
-      image,
-      headers: {"Cache-Control": "max-age=${60*60*24*7}"}, // 7 дней
-    );
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'species': species,
+      'type': type,
+      'gender': gender,
+      'origin': origin.toJson(),
+      'location': location.toJson(),
+      'image': image,
+      'url': url,
+      'created': created
+    };
   }
 }
 
@@ -71,6 +75,13 @@ class Origin {
       url: json['url']
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'url': url
+    };
+  }
 }
 
 class Location {
@@ -87,5 +98,12 @@ class Location {
         name: json['name'],
         url: json['url']
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'url': url
+    };
   }
 }

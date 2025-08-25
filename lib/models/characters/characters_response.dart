@@ -1,19 +1,26 @@
 import 'package:rickandmortyapp/models/characters/character.dart';
 
-class Characters {
+class CharactersResponse {
   final CharactersInfo info;
-  final List<Character> list;
+  final List<Character> results;
 
-  Characters({
+  CharactersResponse({
     required this.info,
-    required this.list
+    required this.results
   });
 
-  factory Characters.fromJson(Map<String, dynamic> json) {
-    return Characters(
+  factory CharactersResponse.fromJson(Map<String, dynamic> json) {
+    return CharactersResponse(
       info: CharactersInfo.fromJson(json['info']),
-      list: json['results'].map<Character>((character) => Character.fromJson(character)).toList()
+      results: json['results'].map<Character>((character) => Character.fromJson(character)).toList()
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'info': info.toJson(),
+      'results': results.map((character) => character.toJson()).toList()
+    };
   }
 }
 
@@ -37,5 +44,14 @@ class CharactersInfo {
       next: json['next'],
       prev: json['prev']
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'count': count,
+      'pages': pages,
+      'next': next,
+      'prev': prev
+    };
   }
 }

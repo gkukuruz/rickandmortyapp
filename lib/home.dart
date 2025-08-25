@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmortyapp/screens/export.dart';
+import 'package:rickandmortyapp/screens/screens.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -29,9 +29,9 @@ class _HomeViewState extends State<HomeView> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home'
+            activeIcon: Icon(Icons.account_circle_rounded),
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Characters'
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.star),

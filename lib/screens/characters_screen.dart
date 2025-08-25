@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/providers/characters_provider.dart';
-import 'package:rickandmortyapp/widgets/characters/character_card.dart';
+import 'package:rickandmortyapp/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,20 +23,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!_isLoading) {
+    final provider = Provider.of<CharactersProvider>(context, listen: false);
+
+    if (provider.characters.isEmpty && !provider.isLoading && !_isLoading) {
+      _isLoading = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        final provider = Provider.of<CharactersProvider>(context, listen: false);
-        if (provider.characters.isEmpty && !provider.isLoading) {
-          provider.loadCharacters();
-        }
+        provider.loadCharacters();
+        _isLoading = false;
       });
     }
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+
+    if (currentScroll >= maxScroll * 0.8) {
       final provider = Provider.of<CharactersProvider>(context, listen: false);
-      if (!provider.isLoading) {
+      if (!provider.isLoading && provider.hasMore) {
         provider.loadMoreCharacters();
       }
     }
@@ -73,5 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         )
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
