@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmortyapp/screens.dart';
+import 'package:rickandmortyapp/screens/export.dart';
 
-class HomeView extends StatefulWidget with RouteAware {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
