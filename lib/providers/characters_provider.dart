@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rickandmortyapp/services/services.dart';
 import 'package:rickandmortyapp/models/models.dart';
 import 'package:rickandmortyapp/repositories/repositories.dart';
 
@@ -12,11 +11,10 @@ class CharactersProvider with ChangeNotifier {
   bool _dispose = false;
 
   List<Character> get characters => _characters;
-  int get currentPage => _currentPage;
   bool get isLoading => _isLoading;
   bool get hasMore => _hasMore;
 
-  Future<void> loadCharacters({int page = 1}) async {
+  Future<void> getCharacters({int page = 1}) async {
     if (_isLoading || !_hasMore) return;
 
     _isLoading = true;
@@ -45,9 +43,9 @@ class CharactersProvider with ChangeNotifier {
     }
   }
 
-  Future<void> loadMoreCharacters() async {
+  Future<void> getMoreCharacters() async {
     if (_isLoading) return;
-    await loadCharacters(page: _currentPage + 1);
+    await getCharacters(page: _currentPage + 1);
   }
 
   @override

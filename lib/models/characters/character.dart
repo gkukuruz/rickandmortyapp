@@ -8,9 +8,9 @@ class Character {
   final Origin origin;
   final Location location;
   final String image;
-  //final List<String> episode;
   final String url;
   final String created;
+  final List<String> episode;
 
   Character({
     required this.id,
@@ -22,9 +22,9 @@ class Character {
     required this.origin,
     required this.location,
     required this.image,
-    //required this.episode,
     required this.url,
     required this.created,
+    this.episode = const []
   });
 
   factory Character.fromJson(Map<String, dynamic> json) {
@@ -38,6 +38,7 @@ class Character {
       origin: Origin.fromJson(json['origin']),
       location: Location.fromJson(json['location']),
       image: json['image'],
+      episode: List<String>.from(json['episode'] as List<dynamic>),
       url: json['url'],
       created: json['created']
     );

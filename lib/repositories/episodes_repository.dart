@@ -1,19 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:rickandmortyapp/services/services.dart';
 import 'package:rickandmortyapp/models/models.dart';
+import 'package:rickandmortyapp/services/services.dart';
 
-class CharactersRepository {
+class EpisodesRepository {
   final ApiService _api;
   final BaseCacheManager _cache;
 
-  CharactersRepository({ApiService? api, BaseCacheManager? cache}):
+  EpisodesRepository({ApiService? api, BaseCacheManager? cache}):
     _api = api ?? ApiService(),
     _cache = cache ?? DefaultCacheManager();
 
-  Future<CharactersResponse?> getCharacters({int page = 1, bool refreshCache = false}) async {
-    final cacheKey = 'characters_page_$page';
+  Future<EpisodeResponse?> getEpisode({required String url, bool refreshCache = false}) async {
+    String path = Uri.parse(url).path;
+    final cacheKey = 'episode$path';
 
     if (!refreshCache) {
       try {
@@ -22,12 +23,12 @@ class CharactersRepository {
           return cachedData;
         }
       } catch(e) {
-        print('get characters from cache error: $e');
+        print('get episode from cache error: $e');
       }
     }
 
     try {
-      final characters = await _api.getCharacters(page: page);
+      final characters = await _api.getEpisode(path: path);
       if (characters != null) {
         await _saveToCache(cacheKey, characters);
         return characters;
@@ -39,11 +40,11 @@ class CharactersRepository {
           return cachedData;
         }
       }
-      print('get characters network error: ${e}');
+      print('get episode network error: ${e}');
     }
   }
 
-  Future<CharactersResponse?> _getCachedData(String cacheKey) async {
+  Future<EpisodeResponse?> _getCachedData(String cacheKey) async {
     try {
       final fileInfo = await _cache.getFileFromCache(cacheKey);
 
@@ -51,7 +52,7 @@ class CharactersRepository {
         final content = await fileInfo.file.readAsString();
         final jsonData = json.decode(content);
         print('load from cache: $cacheKey');
-        return CharactersResponse.fromJson(jsonData);
+        return EpisodeResponse.fromJson(jsonData);
       }
     } catch(e) {
       print('error reading from cache: $e');
@@ -59,7 +60,7 @@ class CharactersRepository {
     return null;
   }
 
-  Future<void> _saveToCache(String cacheKey, CharactersResponse data) async {
+  Future<void> _saveToCache(String cacheKey, EpisodeResponse data) async {
     try {
       final jsonString = json.encode(data);
       await _cache.putFile(
@@ -70,7 +71,7 @@ class CharactersRepository {
       );
       print('saved to cache: $cacheKey');
     } catch(e) {
-      print('error saving characters to cache: $e');
+      print('error saving episode to cache: $e');
     }
   }
 }

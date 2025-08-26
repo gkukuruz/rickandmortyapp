@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (provider.characters.isEmpty && !provider.isLoading && !_isLoading) {
       _isLoading = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        provider.loadCharacters();
+        provider.getCharacters();
         _isLoading = false;
       });
     }
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (currentScroll >= maxScroll * 0.8) {
       final provider = Provider.of<CharactersProvider>(context, listen: false);
       if (!provider.isLoading && provider.hasMore) {
-        provider.loadMoreCharacters();
+        provider.getMoreCharacters();
       }
     }
   }
