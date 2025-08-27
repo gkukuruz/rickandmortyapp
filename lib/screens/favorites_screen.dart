@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rickandmortyapp/providers/index.dart';
+import 'package:rickandmortyapp/widgets/widgets.dart';
 
 class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Избранное',
-        style: TextStyle(fontSize: 24),
-      ),
+    final provider = Provider.of<FavoritesProvider>(context);
+    final favorites = provider.favorites;
+
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: favorites.length,
+              itemBuilder: (context, index) {
+                return CharacterCard(
+                  character: favorites[index],
+                );
+              }
+            )
+          ),
+        ],
+      )
     );
   }
 }

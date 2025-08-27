@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/models/models.dart';
 import 'package:rickandmortyapp/services/services.dart';
 import 'package:rickandmortyapp/widgets/widgets.dart';
-import 'package:rickandmortyapp/providers/episode_provider.dart';
+import 'package:rickandmortyapp/providers/index.dart';
 
 class CharacterCard extends StatelessWidget {
   final Character character;
@@ -15,6 +15,8 @@ class CharacterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FavoritesProvider>(context, listen: true);
+
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: CachedNetworkImageProvider(
@@ -24,7 +26,12 @@ class CharacterCard extends StatelessWidget {
       ),
       title: Text(character.name),
       subtitle: Text('${character.species}, ${character.gender}'),
-      trailing: Icon(Icons.star_outline),
+      trailing: IconButton(
+        onPressed: () {
+          provider.toggleFavorite(character);
+        },
+        icon: Icon(provider.isFavorite(character.id) ? Icons.star : Icons.star_outline)
+      ),
       onTap: () {
         _showCharacterInfo(context, character);
       },

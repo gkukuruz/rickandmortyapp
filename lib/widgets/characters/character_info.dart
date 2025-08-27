@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/models/models.dart';
-import 'package:rickandmortyapp/providers/episode_provider.dart';
+import 'package:rickandmortyapp/providers/index.dart';
 import 'package:rickandmortyapp/services/services.dart';
 
 class CharacterInfo extends StatefulWidget {

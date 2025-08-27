@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rickandmortyapp/providers/characters_provider.dart';
+import 'package:rickandmortyapp/providers/index.dart';
 import 'package:rickandmortyapp/widgets/widgets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CharactersScreen extends StatefulWidget {
+  const CharactersScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _CharactersScreenState createState() => _CharactersScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CharactersScreenState extends State<CharactersScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final charactersProvider = Provider.of<CharactersProvider>(context);
+
     return SafeArea(
       child: charactersProvider.characters.isEmpty && charactersProvider.isLoading ?
         Center(
