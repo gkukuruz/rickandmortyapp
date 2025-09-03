@@ -7,10 +7,10 @@ class CharactersScreen extends StatefulWidget {
   const CharactersScreen({Key? key}) : super(key: key);
 
   @override
-  _CharactersScreenState createState() => _CharactersScreenState();
+  CharactersScreenState createState() => CharactersScreenState();
 }
 
-class _CharactersScreenState extends State<CharactersScreen> {
+class CharactersScreenState extends State<CharactersScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
@@ -52,7 +52,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
     return SafeArea(
       child: charactersProvider.characters.isEmpty && charactersProvider.isLoading ?
-        Center(
+        const Center(
           child: CircularProgressIndicator(),
         ):
         Column(
@@ -69,7 +69,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
               )
             ),
             if (charactersProvider.characters.isNotEmpty && charactersProvider.isLoading)
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Center(
                   child: CircularProgressIndicator(),

@@ -4,7 +4,7 @@ import 'package:rickandmortyapp/repositories/repositories.dart';
 
 class CharactersProvider with ChangeNotifier {
   final CharactersRepository _repository = CharactersRepository();
-  List<Character> _characters = [];
+  final List<Character> _characters = [];
   int _currentPage = 1;
   bool _isLoading = false;
   bool _hasMore = true;
@@ -25,16 +25,14 @@ class CharactersProvider with ChangeNotifier {
     try {
       final response = await _repository.getCharacters(page: page);
       if (response != null) {
-        if (response.results != null && response.results.isNotEmpty) {
+        if (response.results.isNotEmpty) {
           _characters.addAll(response.results);
           _currentPage = page;
         }
-        if (response.info != null) {
-          _hasMore = response.info.next != null;
-        }
+        _hasMore = response.info.next != null;
       }
     } catch(e) {
-      print('load characters error: ${e}');
+      print('load characters error: $e');
     } finally {
       _isLoading = false;
       if (!_dispose) {

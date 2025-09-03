@@ -3,7 +3,7 @@ import 'package:rickandmortyapp/models/models.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://rickandmortyapi.com';
-  late Dio _dio;
+  late final Dio _dio;
 
   ApiService({Dio? dio}):
     _dio = dio ?? Dio(BaseOptions(
@@ -26,6 +26,8 @@ class ApiService {
     } on DioException catch(e) {
       print(e.message);
     }
+
+    return null;
   }
 
   Future<EpisodeResponse?> getEpisode({required String path}) async {
@@ -39,6 +41,7 @@ class ApiService {
       }
     } on DioException catch(e) {
       print(e.message);
+      return null;
     }
   }
 }

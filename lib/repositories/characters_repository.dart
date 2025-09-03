@@ -39,15 +39,17 @@ class CharactersRepository {
           return cachedData;
         }
       }
-      print('get characters network error: ${e}');
+      print('get characters network error: $e');
     }
+
+    return null;
   }
 
   Future<CharactersResponse?> _getCachedData(String cacheKey) async {
     try {
       final fileInfo = await _cache.getFileFromCache(cacheKey);
 
-      if (fileInfo != null && fileInfo.file != null) {
+      if (fileInfo != null) {
         final content = await fileInfo.file.readAsString();
         final jsonData = json.decode(content);
         print('load from cache: $cacheKey');

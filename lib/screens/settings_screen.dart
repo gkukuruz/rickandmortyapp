@@ -4,19 +4,22 @@ import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/providers/index.dart';
 
 class SettingsScreen extends StatelessWidget {
+
+  const SettingsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context);
 
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
             Row(
               children: [
-                Text('Dark Theme:'),
-                Spacer(),
+                const Text('Dark Theme:'),
+                const Spacer(),
                 Switch(
                   value: provider.isDarkMode ? true : false,
                   onChanged: (bool isDark) {

@@ -4,6 +4,9 @@ import 'package:rickandmortyapp/providers/index.dart';
 import 'package:rickandmortyapp/widgets/widgets.dart';
 
 class FavoritesScreen extends StatelessWidget {
+
+  const FavoritesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FavoritesProvider>(context);

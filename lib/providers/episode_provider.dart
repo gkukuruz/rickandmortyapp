@@ -21,7 +21,7 @@ class EpisodeProvider with ChangeNotifier {
     try {
       episode = await _repository.getEpisode(url: url);
     } catch(e) {
-      print('episode load error: ${e}');
+      print('episode load error: $e');
     } finally {
       _isLoading = false;
       if (!_dispose) {

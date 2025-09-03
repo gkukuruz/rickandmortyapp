@@ -11,10 +11,10 @@ class CharacterInfo extends StatefulWidget {
   const CharacterInfo({Key? key, required this.character }) : super(key: key);
 
   @override
-  _CharacterInfoState createState() => _CharacterInfoState();
+  CharacterInfoState createState() => CharacterInfoState();
 }
 
-class _CharacterInfoState extends State<CharacterInfo> {
+class CharacterInfoState extends State<CharacterInfo> {
   @override
   void initState() {
     super.initState();
@@ -36,12 +36,12 @@ class _CharacterInfoState extends State<CharacterInfo> {
   Widget build(BuildContext context) {
     final provider = Provider.of<EpisodeProvider>(context);
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20),
             child: CircleAvatar(
               backgroundImage: CachedNetworkImageProvider(
                 widget.character.image,
@@ -51,19 +51,19 @@ class _CharacterInfoState extends State<CharacterInfo> {
             ),
           ),
           ListTile(
-            title: Text(widget.character.name, style: TextStyle(fontWeight: FontWeight.w900)),
-            subtitle: Text('${widget.character.status} - ${widget.character.species}', style: TextStyle(fontWeight: FontWeight.w800)),
+            title: Text(widget.character.name, style: const TextStyle(fontWeight: FontWeight.w900)),
+            subtitle: Text('${widget.character.status} - ${widget.character.species}', style: const TextStyle(fontWeight: FontWeight.w800)),
           ),
           ListTile(
-            title: Text('Last known location:'),
-            subtitle: Text(widget.character.location.name, style: TextStyle(
+            title: const Text('Last known location:'),
+            subtitle: Text(widget.character.location.name, style: const TextStyle(
               fontWeight: FontWeight.w900
             )),
           ),
           if (provider.episode != null && !provider.isLoading)
             ListTile(
-              title: Text('First seen in:'),
-              subtitle: Text('${provider.episode!.name} (${provider.episode!.episode})', style: TextStyle(
+              title: const Text('First seen in:'),
+              subtitle: Text('${provider.episode!.name} (${provider.episode!.episode})', style: const TextStyle(
                   fontWeight: FontWeight.w900
               )),
             ),

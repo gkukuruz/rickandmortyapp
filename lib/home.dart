@@ -11,9 +11,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _currentScreenIndex = 0;
   final List<Widget> _screens = [
-    CharactersScreen(),
-    FavoritesScreen(),
-    SettingsScreen(),
+    const CharactersScreen(),
+    const FavoritesScreen(),
+    const SettingsScreen(),
   ];
 
   @override
