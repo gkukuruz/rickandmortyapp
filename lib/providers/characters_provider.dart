@@ -3,7 +3,7 @@ import 'package:rickandmortyapp/models/models.dart';
 import 'package:rickandmortyapp/repositories/repositories.dart';
 
 class CharactersProvider with ChangeNotifier {
-  final CharactersRepository _repository = CharactersRepository();
+  final CharactersRepository _repository;
   final List<Character> _characters = [];
   int _currentPage = 1;
   bool _isLoading = false;
@@ -13,6 +13,8 @@ class CharactersProvider with ChangeNotifier {
   List<Character> get characters => _characters;
   bool get isLoading => _isLoading;
   bool get hasMore => _hasMore;
+
+  CharactersProvider({required CharactersRepository repository}): _repository = repository;
 
   Future<void> getCharacters({int page = 1}) async {
     if (_isLoading || !_hasMore) return;

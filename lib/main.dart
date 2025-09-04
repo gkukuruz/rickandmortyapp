@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rickandmortyapp/home.dart';
 import 'package:rickandmortyapp/providers/index.dart';
-import 'package:rickandmortyapp/providers/providers.dart';
 import 'package:rickandmortyapp/repositories/repositories.dart';
 
 void main() async {
@@ -32,7 +31,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: getProviders(favoritesRepository, settingsRepository),
+      providers: [
+        Provider<CharactersRepository>(
+          create: (_) => CharactersRepository(),
+        ),
+        ChangeNotifierProvider<CharactersProvider>(create: (context) => CharactersProvider(
+            repository: context.read<CharactersRepository>()
+        )),
+        ChangeNotifierProvider<EpisodeProvider>(create: (_) => EpisodeProvider()),
+        ChangeNotifierProvider<FavoritesProvider>(create: (_) => FavoritesProvider(repository: favoritesRepository)),
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider(repository: settingsRepository)),
+      ],
       child: Builder(
         builder: (context) {
           return MaterialApp(
